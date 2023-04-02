@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_home_library/model/book.dart';
 import 'package:my_home_library/ui/container/book_card.dart';
+import 'package:my_home_library/ui/user_selection.dart';
 
 class BookShelf extends StatefulWidget {
   const BookShelf({super.key});
@@ -33,12 +34,30 @@ class _BookShelfState extends State<BookShelf> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: books.length,
-        itemBuilder: (BuildContext _, int index) {
-          final BookCard bookCard = BookCard(book: books[index]);
-          return bookCard;
-        },
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: books.length,
+              itemBuilder: (BuildContext _, int index) {
+                final BookCard bookCard = BookCard(book: books[index]);
+                return bookCard;
+              },
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const UserSelection();
+                  },
+                ),
+              );
+            },
+            child: const Text("貸出・返却"),
+          ),
+        ],
       ),
     );
   }
